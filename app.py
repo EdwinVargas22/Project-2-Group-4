@@ -5,15 +5,33 @@ from sqlalchemy.ext.automap import automap_base
 from sqlalchemy.orm import Session
 from sqlalchemy import create_engine, func
 from flask import Flask, jsonify
+from flask_sqlalchemy import SQLAlchemy
 from config import pg_password
 
 #####################################################
 # Database Setup
 #####################################################
 
+
 # Create connection string to postgres
 connection_string = f"postgres:{pg_password}@localhost:5432/covid_mask_effect_db"
 engine = create_engine(f'postgresql://{connection_string}')
+
+app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = engine
+db = SQLAlchemy(app)
+
+@app.route('/', methods=['POST', 'GET'])
+def testfn():
+
+    # Get request
+    if request.method == 'GET':
+        covid_data = cod
+        return jsonify(message)
+
+    if request.method == 'POST':
+        print(request.get_json())
+        return 'Sucess', 200
 
 # Reflect database into a new model using Base = automap()
 Base = automap_base()
@@ -55,17 +73,6 @@ def home_page():
     # return jsonify({"North Cali County": nocal_counties}, {"North Cali Cases": nocal_cases}, {"North Cali Dates": nocal_dates}, {"So Cal County": socal_counties}, {" So Cal Cases": socal_cases}, {"So Cal Dates": socal_dates})
     return jsonify({"county" : socal_dates})
 # @app.route('/test', methods=['GET', 'POST'])
-# def testfn():
-
-#     # Get request
-#     if request.method == 'GET':
-#         message = {'greeting':'Hello from Flask!'}
-#         return jsonify(message)
-
-#     if request.method == 'POST':
-#         print(request.get_json())
-#         return 'Sucess', 200
-
 
 # def homepage():
 
