@@ -1,56 +1,23 @@
 var dataCalifornia = "clean_covid_df.csv";
 
 
-// function extract() {
-//     var groups = {};
+// var holder = {};
 
-//     dataCalifornia.forEach(function(val) {
-//         var date = val.date.split('T')[0];
-//         if (date in groups) {
-//             groups[date].push(val.cases);
-//         } else {
-//             groups[date] = new Array(val.cases);
-//         }
-//     });
+// dataCalifornia.forEach(function(d) {
+//   if (holder.hasOwnProperty(d.date)) {
+//     holder[d.date] = holder[d.date] + d.cases;
+//   } else {
+//     holder[d.date] = d.cases;
+//   }
+// });
 
-//     console.log(groups);
-//     return groups;
+// var obj2 = [];
+
+// for (var prop in holder) {
+//   obj2.push({ date: prop, cases: holder[prop] });
 // }
 
-// extract();
-
-// let group = dataCalifornia.reduce((r, a) => {
-//     console.log("a", a);
-//     console.log('r', r);
-//     r[a.date] = [...r[a.make] || [], a];
-//     return r;
-//    }, {});
-//    console.log("group", group);
-
-// var grouped = _.mapValues(_.groupBy(dataCalifornia, 'date'),
-//                           clist => clist.map(data => _.omit(data, ['country', 'state', 'fips', 'deaths'])));
-
-// console.log(grouped);
-
-var holder = {};
-
-dataCalifornia.forEach(function(d) {
-  if (holder.hasOwnProperty(d.date)) {
-    holder[d.date] = holder[d.date] + d.cases;
-  } else {
-    holder[d.date] = d.cases;
-  }
-});
-
-var obj2 = [];
-
-for (var prop in holder) {
-  obj2.push({ date: prop, cases: holder[prop] });
-}
-
-console.log(obj2);
-
-
+// console.log(obj2);
 
 
 let heatmap = new frappe.Chart("#heatmap", {
