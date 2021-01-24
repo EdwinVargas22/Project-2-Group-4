@@ -4,8 +4,8 @@ Plotly.d3.csv('https://raw.githubusercontent.com/plotly/datasets/master/2014_us_
         return rows.map(function(row) { return row[key]; });
     }
 
-    var cityName = unpack(rows, 'name'),
-        cityPop = unpack(rows, 'pop'),
+    var cityCounty = unpack(rows, 'county'),
+        cityCases = unpack(rows, 'popCases'),
         cityLat = unpack(rows, 'lat'),
         cityLon = unpack(rows, 'lon'),
         color = [,"rgb(255,65,54)","rgb(133,20,75)","rgb(255,133,27)","lightgrey"],
