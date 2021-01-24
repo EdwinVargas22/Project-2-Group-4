@@ -2,25 +2,27 @@ Plotly.d3.csv('https://raw.githubusercontent.com/plotly/datasets/master/2014_us_
     function unpack(rows, key) {
         return rows.map(function(row) { return row[key]; });
     }
-    var cityName = unpack(rows, 'name'),
-        cityPop = unpack(rows, 'pop'),
-        cityLat = unpack(rows, 'lat'),
-        cityLon = unpack(rows, 'lon'),
+    var citydate = unpack(rows, 'dates')
+        citycounty = unpack(rows, 'county'),
+        citystate = unpack(rows, 'state')
+        citycases = unpack(rows, 'cases'),
+        cityfips = unpack(rows, 'fips'),
+        citydeath = unpack(rows, 'deaths'),
         color = [,"rgb(255,65,54)","rgb(133,20,75)","rgb(255,133,27)","lightgrey"],
         citySize = [],
         hoverText = [],
         scale = 50000;
-    for ( var i = 0 ; i < cityPop.length; i++) {
-        var currentSize = cityPop[i] / scale;
-        var currentText = cityName[i] + " pop: " + cityPop[i];
+    for ( var i = 0 ; i < citycases.length; i++) {
+        var currentSize = citycases[i] / scale;
+        var currentText = citycounty[i] + " pop: " + citycases[i];
         citySize.push(currentSize);
         hoverText.push(currentText);
     }
     var data = [{
         type: 'scattergeo',
         locationmode: 'USA-states-California',
-        lat: cityLat,
-        lon: cityLon,
+        lat: cityfips, 'northern'
+        lon: cityfips, 'southern'
         hoverinfo: 'text',
         text: hoverText,
         marker: {
@@ -32,7 +34,7 @@ Plotly.d3.csv('https://raw.githubusercontent.com/plotly/datasets/master/2014_us_
         }
     }];
     var layout = {
-        title: '2020 California County: Northern vs. Southern California',
+        title: '2020 California COVID-19 Data: Northern vs. Southern California',
         showlegend: false,
         geo: {
             scope: 'california',
