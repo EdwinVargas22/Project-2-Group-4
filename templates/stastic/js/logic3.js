@@ -1,4 +1,4 @@
-Plotly.d3.csv('https://raw.githubusercontent.com/plotly/datasets/master/2014_us_cities.csv', function(err, rows){
+Plotly.d3.csv('https://github.com/EdwinVargas22/Project-2-Group-4/blob/main/clean_covid_df.csv', function(err, rows){
     function unpack(rows, key) {
         return rows.map(function(row) { return row[key]; });
     }
