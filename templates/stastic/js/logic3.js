@@ -1,28 +1,30 @@
-Plotly.d3.csv('https://github.com/EdwinVargas22/Project-2-Group-4/blob/main/clean_covid_df.csv', function(err, rows){
+Plotly.d3.csv('https://raw.githubusercontent.com/plotly/datasets/master/2014_us_cities.csv', function(err, rows){
+
     function unpack(rows, key) {
         return rows.map(function(row) { return row[key]; });
     }
-    var citydate = unpack(rows, 'dates')
-        citycounty = unpack(rows, 'county'),
-        citystate = unpack(rows, 'state')
-        citycases = unpack(rows, 'cases'),
-        cityfips = unpack(rows, 'fips'),
-        citydeath = unpack(rows, 'deaths'),
+
+    var cityName = unpack(rows, 'name'),
+        cityPop = unpack(rows, 'pop'),
+        cityLat = unpack(rows, 'lat'),
+        cityLon = unpack(rows, 'lon'),
         color = [,"rgb(255,65,54)","rgb(133,20,75)","rgb(255,133,27)","lightgrey"],
         citySize = [],
         hoverText = [],
         scale = 50000;
-    for ( var i = 0 ; i < citycases.length; i++) {
-        var currentSize = citycases[i] / scale;
-        var currentText = citycounty[i] + " pop: " + citycases[i];
+
+    for ( var i = 0 ; i < cityPop.length; i++) {
+        var currentSize = cityPop[i] / scale;
+        var currentText = cityName[i] + " pop: " + cityPop[i];
         citySize.push(currentSize);
         hoverText.push(currentText);
     }
+
     var data = [{
         type: 'scattergeo',
-        locationmode: 'USA-states-California',
-        lat: cityfips, 'northern'
-        lon: cityfips, 'southern'
+        locationmode: 'USA-states',
+        lat: cityLat,
+        lon: cityLon,
         hoverinfo: 'text',
         text: hoverText,
         marker: {
@@ -33,13 +35,14 @@ Plotly.d3.csv('https://github.com/EdwinVargas22/Project-2-Group-4/blob/main/clea
             },
         }
     }];
+
     var layout = {
-        title: '2020 California COVID-19 Data: Northern vs. Southern California',
+        title: '2020 California COVID-19 Cases - Northern v. Southern ',
         showlegend: false,
         geo: {
-            scope: 'california',
+            scope: 'usa',
             projection: {
-                type: 'california'
+                type: 'albers usa'
             },
             showland: true,
             landcolor: 'rgb(217, 217, 217)',
@@ -49,5 +52,7 @@ Plotly.d3.csv('https://github.com/EdwinVargas22/Project-2-Group-4/blob/main/clea
             countrycolor: 'rgb(255,255,255)'
         },
     };
+
     Plotly.newPlot("myDiv", data, layout, {showLink: false});
+
 });
