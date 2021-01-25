@@ -1,12 +1,12 @@
 $(document).ready(function () {
     var newArray = [];
-    d3.csv("grouped_norcal_county_total_df.csv", function(error, data) {// with header..
+    d3.csv("", function(error, data) {// with header..
         data.forEach(function(d) {
                 newArray.push(d);
         });
 
         });
-        d3.csv("grouped_socal_county_totals_df.csv", function(error, data2) {// without header..
+        d3.csv("", function(error, data2) {// without header..
             data2.forEach(function(d2) {
                     newArray.push(d2);
             });
@@ -17,8 +17,8 @@ $(document).ready(function () {
 
     var county = unpack(rows, 'county'),
         cases = unpack(rows, 'cases'),
-        cityLat = unpack(rows, 'lat'),
-        cityLon = unpack(rows, 'lon'),
+        northern_cali_fips = unpack(rows, 'northern_cali_fips'),
+        southern_cali_fips = unpack(rows, 'southern_cali_fips'),
         color = [,"rgb(255,65,54)","rgb(133,20,75)","rgb(255,133,27)","lightgrey"],
         citySize = [],
         hoverText = [],
