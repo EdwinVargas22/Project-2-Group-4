@@ -53,8 +53,8 @@ def home_page():
     socal_cases = session.query(socal_data.cases).all()
     # socal_dates = session.query(socal_data.date).all()
 
-    return jsonify({"Cali Cases": cali_cases, "Cali Dates": cali_dates}, {"North Cali County": nocal_counties, "North Cali Cases": nocal_cases}, {"So Cal County": socal_counties, " So Cal Cases": socal_cases})
-
+    # return jsonify({"Cali Cases": cali_cases, "Cali Dates": cali_dates}, {"North Cali County": nocal_counties, "North Cali Cases": nocal_cases}, {"So Cal County": socal_counties, " So Cal Cases": socal_cases})
+    return jsonify(cali_dates)
 # @app.route('/test', methods=['GET', 'POST'])
 
 # def homepage():
