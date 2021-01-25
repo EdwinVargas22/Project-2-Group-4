@@ -35,6 +35,8 @@ app = Flask(__name__)
 
 @app.route('/')
 def home_page():
+    # Create empty list
+    cali_cases_date = []
     # Create connection
     session = Session(engine)
     # california_data
@@ -61,6 +63,7 @@ def home_page():
 
 # @app.route("/api/v1.0/calendar")
 # def calendar():
+#     return 
 
 # @app.route("/api/v1.0/map")
 # def map():
@@ -69,8 +72,44 @@ def home_page():
 # def scatter():
 
 # @app.route("/api/v1.0/")
+#############################################################
+# Endpoints for jsonified data
+#############################################################
+# cali_cases_by_date endpoint
+@app.route("/api/v3.0/cali_cases_by_date")
+def cali_cases_by_date():
+    # Connect to engine
+    session = Session(engine)
+ 
+    # session.query for all cali_data for cases and date
+    cali_cases = session.query(cali_data.cases).all()
+    cali_dates = session.query(cali_data.date).all()
+    # return data with jsonify
+    return jsonify([{"All Cali Cases": cali_cases, "date": cali_dates}])
 
+# nocal_county_cases endpoint
+@app.route("/api/v3.0/nocal_county_cases")
+def nocal_county_cases():
+    # Connect to engine
+    session = Session(engine)
+    
+    # session.query for all nocal_data for fips and cases
+    nocal_counties = session.query(nocal_data.fips).all()
+    nocal_cases = session.query(nocal_data.cases).all()
+    # return data with jsonify
+    return jsonify([{"fips": nocal_counties, "cases": nocal_cases}])
 
+# socal_county_cases endpoint
+@app.route("/api/v3.0/socal_county_cases")
+def socal_county_cases():
+    # Connect to engine
+    session = Session(engine)
+
+    # session.query for all socal_data for fips and cases
+    socal_counties = session.query(socal_data.fips).all()
+    socal_cases = session.query(socal_data.cases).all()
+    # return data with jsonify
+    return jsonify([{"fips": socal_counties, "cases": socal_cases}])
 
 # Run app
 if __name__ == "__main__":
