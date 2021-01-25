@@ -44,12 +44,12 @@ def home_page():
     # dates_total = session.quesry(cali)
 
     # nocal_data
-    nocal_counties = session.query(nocal_data.county).all()
+    nocal_counties = session.query(nocal_data.fips).all()
     nocal_cases = session.query(nocal_data.cases).all()
     # nocal_dates = session.query(nocal_data.date).all()
 
     # socal_data
-    socal_counties = session.query(socal_data.county).all()
+    socal_counties = session.query(socal_data.fips).all()
     socal_cases = session.query(socal_data.cases).all()
     # socal_dates = session.query(socal_data.date).all()
 
