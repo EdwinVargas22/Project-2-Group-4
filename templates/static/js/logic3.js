@@ -1,11 +1,22 @@
-Plotly.d3.csv('https://raw.githubusercontent.com/plotly/datasets/master/2014_us_cities.csv', function(err, rows){
+$(document).ready(function () {
+    var newArray = [];
+    d3.csv("grouped_norcal_county_total_df.csv", function(error, data) {// with header..
+        data.forEach(function(d) {
+                newArray.push(d);
+        });
 
-    function unpack(rows, key) {
-        return rows.map(function(row) { return row[key]; });
-    }
+        });
+        d3.csv("grouped_socal_county_totals_df.csv", function(error, data2) {// without header..
+            data2.forEach(function(d2) {
+                    newArray.push(d2);
+            });
 
-    var cityCounty = unpack(rows, 'county'),
-        cityCases = unpack(rows, 'popCases'),
+            });
+        console.log(newArray);
+    });
+
+    var county = unpack(rows, 'county'),
+        cases = unpack(rows, 'cases'),
         cityLat = unpack(rows, 'lat'),
         cityLon = unpack(rows, 'lon'),
         color = [,"rgb(255,65,54)","rgb(133,20,75)","rgb(255,133,27)","lightgrey"],
