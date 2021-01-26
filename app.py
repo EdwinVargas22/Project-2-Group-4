@@ -50,27 +50,28 @@ def cali_cases_by_date():
     # Connect to engine to connect to postgres database
     session = Session(engine)
  
-    # session.query cali_data for cases and date to use in calendar view visualization
+    # session.query cali_data for date, cases and death
     cali_dates = session.query(cali_data.date).all()
     cali_cases = session.query(cali_data.cases).all()
+    # cali_deaths = session.query(cali_data.deaths).all()
 
     # return data with jsonify
     return jsonify([{"date": cali_dates, "california total cases": cali_cases}])
 
 @app.route("/api/v3.0/cali_cases_by_county")
-def cali_cases_by_date():
+def cali_county():
     # Connect to engine to connect to postgres database
     session = Session(engine)
  
-    # session.query for cali_counties for county, cases and date
-    cali_counties = session.query(cali_counties.county).all()
+    # session.query for cali_counties for county, cases, lat and long
+    cali_county = session.query(cali_counties.county).all()
     cali_county_cases = session.query(cali_counties.cases).all()
-    cali_count_dates = session.query(cali_counties.date).all()
+    cali_county_lat = session.query(cali_counties.latitude).all()
+    cali_county_long = session.query(cali_counties.longitude).all()
 
     # return data with jsonify
-    return jsonify([{"All Cali Cases": cali_cases, "date": cali_dates}])
+    return jsonify([{"county": cali_county, "california total cases": cali_county_cases,"latitude": cali_county_lat, "longitude":cali_county_long}])
 
-# nocal_county_cases endpoint
 @app.route("/api/v3.0/nocal_county_cases")
 def nocal_county_cases():
     # Connect to engine to connect to postgres database
@@ -81,11 +82,10 @@ def nocal_county_cases():
     norcal_cases = session.query(norcal_data.cases).all()
     norcal_lat = session.query(norcal_data.latitude).all()
     norcal_long = session.query(norcal_data.longitude).all()
-    norcal_deaths = session.query()
+
     # return data with jsonify
     return jsonify([{"county": norcal_counties, "cases": norcal_cases, "latitude": norcal_lat, "longitude": norcal_long}])
 
-# socal_county_cases endpoint
 @app.route("/api/v3.0/socal_county_cases")
 def socal_county_cases():
     # Connect to engine
@@ -96,7 +96,7 @@ def socal_county_cases():
     socal_cases = session.query(socal_data.cases).all()
     socal_lat = session.query(socal_data.latitude).all()
     socal_long = session.query(socal_data.longitude).all()
-    socal_deaths = 
+
     # return data with jsonify
     return jsonify([{"county": socal_counties, "cases": socal_cases,"latitude": socal_lat, "longitude": socal_long}])
 
