@@ -15,7 +15,7 @@ var myMap = L.map("map", {
   }).addTo(myMap);
   
   // Store API query variables
-  var baseURL = "https://data.cityofnewyork.us/resource/fhrw-4uyv.json?";
+  var baseURL = "../api/v3.0/nocal_county_cases";
   var date = "$where=created_date between'2020-01-21T00:00:00' and '2020-12-31T00:00:00'";
   var complaint = "&complaint_type=cases";
   var limit = "&$limit=10000";
