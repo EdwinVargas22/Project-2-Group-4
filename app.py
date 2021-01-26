@@ -22,9 +22,9 @@ Base = automap_base()
 Base.prepare(engine, reflect=True)
 
 # Save reference to california_data, nocal_data, and socal_data tables
-cali_data = Base.classes.cali_data
-nocal_data = Base.classes.nocal_data
-socal_data = Base.classes.socal_data
+cali_data = Base.classes.cali_2020
+norcal_data = Base.classes.norcal_geo
+socal_data = Base.classes.socal_geo
 
 #######################################################
 # Setup Flask
@@ -46,8 +46,8 @@ def home_page():
     # dates_total = session.quesry(cali)
 
     # nocal_data
-    nocal_counties = session.query(nocal_data.fips).all()
-    nocal_cases = session.query(nocal_data.cases).all()
+    norcal_counties = session.query(norcal_data.fips).all()
+    norcal_cases = session.query(norcal_data.cases).all()
     # nocal_dates = session.query(nocal_data.date).all()
 
     # socal_data
@@ -94,10 +94,12 @@ def nocal_county_cases():
     session = Session(engine)
     
     # session.query for all nocal_data for fips and cases
-    nocal_counties = session.query(nocal_data.fips).all()
-    nocal_cases = session.query(nocal_data.cases).all()
+    norcal_counties = session.query(norcal_data.county).all()
+    norcal_cases = session.query(norcal_data.cases).all()
+    norcal_lat = session.query(norcal_data.latitude).all()
+    norcal_long = session.query(norcal_data.longitude).all()
     # return data with jsonify
-    return jsonify([{"fips": nocal_counties, "cases": nocal_cases}])
+    return jsonify([{"county": norcal_counties, "cases": norcal_cases, "latitude": norcal_lat, "longitude": norcal_long}])
 
 # socal_county_cases endpoint
 @app.route("/api/v3.0/socal_county_cases")
@@ -106,10 +108,12 @@ def socal_county_cases():
     session = Session(engine)
 
     # session.query for all socal_data for fips and cases
-    socal_counties = session.query(socal_data.fips).all()
+    socal_counties = session.query(socal_data.county).all()
     socal_cases = session.query(socal_data.cases).all()
+    socal_lat = session.query(socal_data.latitude).all()
+    socal_long = session.query(socal_data.longitude).all()
     # return data with jsonify
-    return jsonify([{"fips": socal_counties, "cases": socal_cases}])
+    return jsonify([{"county": socal_counties, "cases": socal_cases,"latitude": socal_lat, "longitude": socal_long}])
 
 # Run app
 if __name__ == "__main__":
