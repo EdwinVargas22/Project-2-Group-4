@@ -86,7 +86,7 @@ def nocal_county_cases():
     # return data with jsonify
     return jsonify([{"county": norcal_counties, "cases": norcal_cases, "latitude": norcal_lat, "longitude": norcal_long}])
 
-@app.route("/api/v3.0/socal_county_cases")
+@app.route("/socal_county_cases")
 def socal_county_cases():
     # Connect to engine
     session = Session(engine)
@@ -96,7 +96,7 @@ def socal_county_cases():
     socal_cases = session.query(socal_data.cases).all()
     socal_lat = session.query(socal_data.latitude).all()
     socal_long = session.query(socal_data.longitude).all()
-
+    
     # return data with jsonify
     return jsonify([{"county": socal_counties, "cases": socal_cases,"latitude": socal_lat, "longitude": socal_long}])
 
