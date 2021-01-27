@@ -1,58 +1,47 @@
 // Set queryUrl
-// var queryUrl = "https://raw.githubusercontent.com/EdwinVargas22/Project-2-Group-4/main/output/cases_deaths_df.csv";
+var queryUrl = "https://raw.githubusercontent.com/EdwinVargas22/Project-2-Group-4/main/output/cases_deaths_df.json";
 
 // Read in data
-d3.json("../../../templates/output/cases_deaths_df.json").then((casesDeath) => {
-    console.log(casesDeath.county);
+d3.json(queryUrl).then((casesDeath) => {
+    // console.log(casesDeath);
     if (casesDeath !== null) {
-        // console.log(casesDeath); 
 
-        // var deaths = [];
-        // var cases = [];
-        // var countyName = [];
+        // Create variables for each object
+        var deaths = casesDeath.deaths;
+        var cases = casesDeath.cases;
+        var countyName = casesDeath.county;
 
-        // for (var i = 0; i < casesDeath.length; i++) {
-        //     deaths.push(+casesDeath.deaths[i]);
-        //     cases.push(+casesDeath.cases[i]);
-        //     countyName.push(casesDeath.county[i]);
-    
-        // }
-        // console.log(casesDeath);
-        // deaths.push(+casesDeath.deaths);
-        // cases.push(+casesDeath.cases);
-        // countyName.push(casesDeath.county);
+        // Create empty list
+        var countyNameList = [];
+        var casesList = [];
+        var deathsList = [];
 
-        // var deaths = +casesDeath.deaths;
-        // var cases = +casesDeath.cases;
-        // var countyName = casesDeath.county;
-        
-        // turn data into an array
-        // var deathArray = [deaths];
-        // console.log(deathArray);
-        
-        // deaths.push(+casesDeath.deaths);
-        // cases.push(+casesDeath.cases);
-        // countyName.push(casesDeath.county);
-    
-        // deaths.sort(function(a, b) {
-        //     return a - b;
-        // });
+        // Loop through object and push value to list
+        for (const [key, value] of Object.entries(countyName)) {
+            countyNameList.push(value);    
+        }
 
-        console.log(deaths);
-
+        for (const [key, value] of Object.entries(cases)) {
+            casesList.push(value);
+            
+        }
+        for (const [key, value] of Object.entries(deaths)) {
+            deathsList.push(value);
+            
+        }
 
         // Create Bubble Chart using cases, deaths,and county_name
         var bubbleChart = [{
-            x: deaths,
-            y: cases,
-            text: [`<br>${countyName}`, `<br>"cases:" ${cases}`, `<br>"deaths:" ${deaths}`],
+            x: deathsList,
+            y: casesList,
+            text: [`<br>${countyNameList}`, `<br>"cases:" ${casesList}`, `<br>"deaths:" ${deathsList}`],
             mode: 'markers',
             marker: {
-                color: countyName,
+                color: ['rgb(93, 164, 214)', 'rgb(255, 144, 14)',  'rgb(44, 160, 101)', 'rgb(255, 65, 54)'],
                 size: 20 
             },
-            sizeref: 2,
-            sizemode: 'area'
+            // sizeref: 2,
+            // sizemode: 'area'
         }];
     
         // Create Layout for Bubble Chart
