@@ -15,7 +15,7 @@ var myMap = L.map("map", {
   }).addTo(myMap);
   
   // Store API query variables
-  var baseURL = "https://raw.githubusercontent.com/EdwinVargas22/Project-2-Group-4/main/output/merge_norcal_geo_df.csv";
+  var baseURL = "https://raw.githubusercontent.com/EdwinVargas22/Project-2-Group-4/main/output/cali_county.csv";
   var date = "$where=created_date between'2020-01-21T00:00:00' and '2020-12-31T00:00:00'";
   var complaint = "&complaint_type=cases";
   var limit = "&$limit=10000";
