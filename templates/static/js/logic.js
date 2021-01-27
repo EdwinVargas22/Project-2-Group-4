@@ -1,9 +1,9 @@
 // Set queryUrl
-var queryUrl = "https://raw.githubusercontent.com/EdwinVargas22/Project-2-Group-4/main/output/cases_deaths_df.csv";
+// var queryUrl = "https://raw.githubusercontent.com/EdwinVargas22/Project-2-Group-4/main/output/cases_deaths_df.csv";
 
 // Read in data
-d3.csv(queryUrl, function(casesDeath) {
-
+d3.json("../../../templates/output/cases_deaths_df.json").then((casesDeath) => {
+    console.log(casesDeath.county);
     if (casesDeath !== null) {
         // console.log(casesDeath); 
 
@@ -11,15 +11,24 @@ d3.csv(queryUrl, function(casesDeath) {
         // var cases = [];
         // var countyName = [];
 
-
+        // for (var i = 0; i < casesDeath.length; i++) {
+        //     deaths.push(+casesDeath.deaths[i]);
+        //     cases.push(+casesDeath.cases[i]);
+        //     countyName.push(casesDeath.county[i]);
+    
+        // }
+        // console.log(casesDeath);
         // deaths.push(+casesDeath.deaths);
         // cases.push(+casesDeath.cases);
         // countyName.push(casesDeath.county);
 
-        var deaths = +casesDeath.deaths;
-        var cases = +casesDeath.cases;
-        var countyName = casesDeath.county;
+        // var deaths = +casesDeath.deaths;
+        // var cases = +casesDeath.cases;
+        // var countyName = casesDeath.county;
         
+        // turn data into an array
+        // var deathArray = [deaths];
+        // console.log(deathArray);
         
         // deaths.push(+casesDeath.deaths);
         // cases.push(+casesDeath.cases);
