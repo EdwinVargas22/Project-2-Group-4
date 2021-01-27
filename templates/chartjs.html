@@ -3,49 +3,21 @@
 <html>
     <head>
         <meta charset="UTF-8"/>
-        <title>ChartJS</title>
-        <!-- <script src="https://d3js.org/d3.v5.min.js"></script> -->
-        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.7.1/d3-tip.min.js"></script> -->
-        <script scr="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js "></script>
-    </head>
+        <title>Bubbles</title>
+   </head>
 
     <body>
-        <canvas id="myChart" width="400" height="400"></canvas>
-        <script scr="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js "></script>
-
-        <!-- <script>
-            const CHART = document.getElementById('myChart').getContext('2d');
-            const chart = new Chart(CHART, {
-                type: 'scatter',
-                data: {
-                    datasets: [{
-                        label: 'California COVID-19 Cases vs Death',
-                        data: [{
-                            x: -10,
-                            y: 0
-                        }, {
-                            x: 0,
-                            y: 10
-                        }, {
-                            x: 10,
-                            y: 5
-                        }]
-                    }]
-                },
-                options: {
-                    scales: {
-                        xAxes: [{
-                            type: 'linear',
-                            position: 'bottom'
-                        }]
-                    }
-                }
-            });
-        </script> -->
+        <div class="row">
+            <div class="col-md-10">
+                <div id="bubble"></div>         
+            </div>
+        </div>
+ 
+        
 
         <script src="https://d3js.org/d3.v5.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.7.1/d3-tip.min.js"></script>
-        <script type="text/javascript" src="/static/js/logic.js"></script>
+        <script type="text/javascript" src="static/js/logic.js"></script>
     
     </body>
 
