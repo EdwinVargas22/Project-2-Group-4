@@ -9,7 +9,10 @@ print(mimetypes.guess_extension("application/octet-stream"))
 # Read in csv
 cali_by_counties = pd.read_csv("../../output/cali_county.csv")
 
+cases = cali_by_counties['cases']
 
-fig = px.scatter(cali_by_counties, x="county", y="cases", color="county",
+print(cases)
+
+fig = px.scatter(cali_by_counties, x="county", y=cases, color="county",
                  size='cases', hover_data=['county'])
 fig.show()

@@ -1,5 +1,6 @@
 import os
 import plotly.graph_objects as go
+import plotly.offline as pyo
 import pandas as pd
 import mimetypes
 
@@ -15,3 +16,5 @@ fig = px.line(cases_deaths, x='date', y='cases', title='COVD-19 2020')
 
 fig.update_xaxes(rangeslider_visible=True)
 fig.show()
+
+pyo.plot(fig, filename='time_series.html')
