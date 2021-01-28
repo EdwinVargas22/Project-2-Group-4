@@ -1,64 +1,80 @@
-// Set queryUrl
-var queryUrl = "https://raw.githubusercontent.com/EdwinVargas22/Project-2-Group-4/main/output/cases_deaths_df.json";
+// // canvas resolution
+// var width = 1000,
+// height = 600;  
+  
+// // Defines "svg" as data type and "make canvas" command
+// var svg = d3.select("body").append("svg")
+//       .attr("width", width)
+//       .attr("height", height);
 
-// Read in data
-d3.json(queryUrl).then((casesDeath) => {
-    // console.log(casesDeath);
-    if (casesDeath !== null) {
+//----------------------------------------------------------------------
 
-        // Create variables for each object
-        var deaths = casesDeath.deaths;
-        var cases = casesDeath.cases;
-        var countyName = casesDeath.county;
-
-        // Create empty list
-        var countyNameList = [];
-        var casesList = [];
-        var deathsList = [];
-
-        // Loop through object and push value to list
-        for (const [key, value] of Object.entries(countyName)) {
-            countyNameList.push(value);    
-        }
-
-        for (const [key, value] of Object.entries(cases)) {
-            casesList.push(value);
-            
-        }
-        for (const [key, value] of Object.entries(deaths)) {
-            deathsList.push(value);
-            
-        }
-
-        // Create Bubble Chart using cases, deaths,and county_name
-        var bubbleChart = [{
-            x: deathsList,
-            y: casesList,
-            text: [`<br>${countyNameList}`, `<br>"cases:" ${casesList}`, `<br>"deaths:" ${deathsList}`],
-            mode: 'markers',
-            marker: {
-                color: ['rgb(93, 164, 214)', 'rgb(255, 144, 14)',  'rgb(44, 160, 101)', 'rgb(255, 65, 54)'],
-                size: 20 
-            },
-            // sizeref: 2,
-            // sizemode: 'area'
-        }];
-    
-        // Create Layout for Bubble Chart
-        var bubbleLayout = {
-            title: `California 2020 by County`,
-            xaxis: {title: "Deaths"},
-            yaxis: {title: "Cases"},
-            height: 600,
-            width: 1200,
-            paper_bgcolor: 'rgb (248,248,255)',
-            plot_bgcolor: 'rgb(248,248,255)',
-            font: {
-                family: 'Arial'
-            }
-        };
-        // Display Bubble Chart
-        Plotly.newPlot("bubble", bubbleChart, bubbleLayout);
-
-    }
+// Creating map object
+var myMap = L.map("map", {
+  center: [36.62873356165663, -120.8397582339502],
+  zoom: 6
 });
+
+// Adding tile layer to the map
+L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
+  attribution: "© <a href='https://www.mapbox.com/about/maps/'>Mapbox</a> © <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a> <strong><a href='https://www.mapbox.com/map-feedback/' target='_blank'>Improve this map</a></strong>",
+  tileSize: 512,
+  maxZoom: 18,
+  zoomOffset: -1,
+  id: "mapbox/streets-v11",
+  accessToken: API_KEY
+}).addTo(myMap);
+
+L.svg().addTo(myMap)
+
+// Store API query variables
+var baseURL = "https://raw.githubusercontent.com/EdwinVargas22/Project-2-Group-4/main/output/cali_county.csv";
+var date = "$where=created_date between'2020-01-01T00:00:00' and '2020-12-31T00:00:00'";
+var county = "county";
+var state = "state";
+var fips = "fips";
+var cases = "&cases";
+var limit = "&$limit=10000000";
+
+
+// Assemble API query URL
+var url = baseURL;
+var socalCounties = ["Inyo", "Kern", "San Luis Obispo", "Santa Barbara", "Ventura", "Los Angeles", "San Bernardino", "Orange", "Riverside", "San Diego", "Imperial"];
+
+
+function generateCircle(data) {
+  d3.select('#map')
+    .select('svg')
+    .selectAll('myCircles')
+    .data(data)
+    .enter()
+    .append('circle')
+      .attr("cx", function(d){return myMap.latLngToLayerPoint([d.latitude, d.longitude]).x})
+      .attr("cy", function(d){return myMap.latLngToLayerPoint([d.latitude, d.longitude]).y})
+      .attr('r', function(d){return d.cases/100000>20?20:d.cases/100000})
+      // .style('fill', 'rgba(0,0,155,0.4)')
+       .style('fill', function(d){
+        //  if(d.county  "Inyo"  "Kern" : "San Luis Obispo" : "Santa Barbara" : "Ventura" : "Los Angeles" : "San Bernardino" : "Orange" : "Riverside" : "San Diego": "Imperial"){
+        if(socalCounties.includes(d.county) == true){return 'rgba(0,0,155,0.4)';   }
+        else {return 'rgba(240,2,127, 0.4)'};
+        console.log(d.county)
+      })
+      .attr('stroke-width', 3)
+      .attr('fill-opacity', 10)
+}
+
+function update(){
+  d3.selectAll("circle")
+    .attr("cx", function(d){ return myMap.latLngToLayerPoint([d.latitude, d.longitude]).x })
+    .attr("cy", function(d){ return myMap.latLngToLayerPoint([d.latitude, d.longitude]).y })
+}
+
+// Grab the data with d3
+d3.csv(baseURL, function(data) {
+  if (data !== null) {
+    generateCircle(data)
+
+   }
+});
+
+myMap.on("moveend",update)
