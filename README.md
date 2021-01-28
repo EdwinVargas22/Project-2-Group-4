@@ -7,7 +7,7 @@ We all know 2020 was a (turbulent / tumultuous) crazy and wild year due to the p
 
 # **Here is what we attempted to answer with this project:**
 
-Did the mask mandate help controlCOVID-19 cases? Did the mandated stay-at-home orders slow the spread? 
+Did the mask mandate help control COVID-19 cases? Did the mandated stay-at-home orders slow the spread? 
 What is thepercentage of deaths vs. cases in California? Did Northern California have lower cases thanSouthern California?
 
 
